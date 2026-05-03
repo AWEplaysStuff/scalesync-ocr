@@ -3,16 +3,37 @@
     id("org.jetbrains.kotlin.android")
 }
 
+import java.util.Properties
+
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val hasReleaseSigning = keystorePropertiesFile.exists().also { exists ->
+    if (exists) {
+        keystorePropertiesFile.inputStream().use(keystoreProperties::load)
+    }
+}
+
 android {
     namespace = "com.example.scalesyncocr"
     compileSdk = 34
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.scalesyncocr"
         minSdk = 29
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     buildFeatures {
@@ -31,6 +52,9 @@ android {
 
     buildTypes {
         release {
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

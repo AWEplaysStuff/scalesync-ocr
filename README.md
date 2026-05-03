@@ -1,5 +1,7 @@
 # ScaleSync OCR
 
+![ScaleSync OCR promo banner](docs/assets/repo-hero.svg)
+
 Android app for importing body-composition scale screenshots into Health Connect.
 
 This project is vibe coded.
@@ -24,6 +26,8 @@ No local.properties setup is needed for normal APK users.
 
 - English
 - German
+- French
+- Spanish
 
 The app switches automatically based on the device language.
 
@@ -66,6 +70,13 @@ The app switches automatically based on the device language.
 1. Copy `local.properties.example` to `local.properties` if needed.
 2. Set `sdk.dir` to your Android SDK path.
 3. Build the app with `./gradlew.bat assembleDebug` on Windows.
+
+## Build a signed release
+
+1. Copy `keystore.properties.example` to `keystore.properties`.
+2. Generate or provide your own release keystore and keep it private.
+3. Point `storeFile`, `storePassword`, `keyAlias`, and `keyPassword` to that keystore.
+4. Build the release APK with `./gradlew.bat assembleRelease` on Windows.
 
 ## Permissions
 

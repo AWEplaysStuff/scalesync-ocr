@@ -1,6 +1,7 @@
 .gradle/
 .idea/
 /local.properties
+/keystore.properties
 /build/
 /app/build/
 *.iml
@@ -10,3 +11,5 @@ captures/
 .DS_Store
 Thumbs.db
 *.log
+*.jks
+*.keystore
