@@ -1,13 +1,6 @@
-﻿import java.util.Properties
-
-plugins {
+﻿plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-}
-
-val localProperties = Properties().apply {
-    rootProject.file("local.properties").takeIf { it.exists() }
-        ?.inputStream()?.use { load(it) }
 }
 
 android {
@@ -20,12 +13,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-        buildConfigField(
-            "String",
-            "GEMINI_API_KEY",
-            "\"${localProperties.getProperty("GEMINI_API_KEY", "PLACEHOLDER_KEY")}\""
-        )
     }
 
     buildFeatures {

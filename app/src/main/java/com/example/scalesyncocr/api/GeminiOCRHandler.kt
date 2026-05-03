@@ -1,7 +1,6 @@
 package com.example.scalesyncocr.api
 
 import android.graphics.Bitmap
-import com.example.scalesyncocr.BuildConfig
 import com.example.scalesyncocr.data.ScaleData
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
@@ -10,11 +9,6 @@ import com.google.gson.Gson
 class GeminiOCRHandler {
 
     private val gson = Gson()
-    
-    private val generativeModel = GenerativeModel(
-        modelName = "gemini-3.1-flash-lite-preview",
-        apiKey = BuildConfig.GEMINI_API_KEY
-    )
 
     private val prompt = """
         Analyze the provided image of a body composition scale report.
@@ -47,7 +41,16 @@ class GeminiOCRHandler {
         }
     """.trimIndent()
 
-    suspend fun extractData(bitmap: Bitmap): ScaleData {
+    suspend fun extractData(bitmap: Bitmap, apiKey: String): ScaleData {
+        if (apiKey.isBlank()) {
+            throw IllegalStateException("Gemini API-Key fehlt")
+        }
+
+        val generativeModel = GenerativeModel(
+            modelName = "gemini-3.1-flash-lite-preview",
+            apiKey = apiKey
+        )
+
         val inputContent = content {
             image(bitmap)
             text(prompt)

@@ -5,10 +5,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val savedTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY)
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var apiKeyStore: GeminiApiKeyStore
     private lateinit var healthConnectWriter: HealthConnectWriter
     private val geminiHandler = GeminiOCRHandler()
     private var pendingScaleData: ScaleData? = null
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        apiKeyStore = GeminiApiKeyStore(this)
         healthConnectWriter = HealthConnectWriter(this)
 
         healthPermissionsLauncher = registerForActivityResult(
@@ -61,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        setupApiKeyUi()
         setupClickListeners()
         binding.btnSave.isEnabled = false
         binding.tvResultMeta.visibility = View.GONE
@@ -77,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnUpload.setOnClickListener {
+            val apiKey = requireApiKey() ?: return@setOnClickListener
+            apiKeyStore.saveApiKey(apiKey)
             imagePickerLauncher.launch("image/*")
         }
 
@@ -96,6 +104,43 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupApiKeyUi() {
+        val existingKey = apiKeyStore.getApiKey()
+        if (existingKey.isNotBlank()) {
+            binding.editApiKey.setText(existingKey)
+        }
+
+        updateApiKeyStatus(existingKey)
+
+        binding.editApiKey.doAfterTextChanged { editable ->
+            val apiKey = editable?.toString()?.trim().orEmpty()
+            apiKeyStore.saveApiKey(apiKey)
+            binding.tilApiKey.error = null
+            updateApiKeyStatus(apiKey)
+        }
+    }
+
+    private fun updateApiKeyStatus(apiKey: String) {
+        binding.tvApiKeyStatus.text = if (apiKey.isBlank()) {
+            "Trage hier einmal deinen Gemini API-Key ein. Er wird nur lokal auf diesem Geraet gespeichert."
+        } else {
+            "API-Key gespeichert. Du kannst die APK jetzt direkt benutzen."
+        }
+    }
+
+    private fun requireApiKey(): String? {
+        val apiKey = binding.editApiKey.text?.toString()?.trim().orEmpty()
+        if (apiKey.isBlank()) {
+            binding.tilApiKey.error = "Gemini API-Key fehlt"
+            binding.tvStatus.text = "Trage zuerst deinen Gemini API-Key ein."
+            binding.editApiKey.requestFocus()
+            return null
+        }
+
+        binding.tilApiKey.error = null
+        return apiKey
     }
 
     private fun onConnectHcClicked() {
@@ -163,6 +208,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun processImage(uri: Uri) {
         lifecycleScope.launch {
+            val apiKey = requireApiKey() ?: return@launch
             setLoading(true)
             binding.tvStatus.text = "Gemini AI analysiert das Bild..."
             binding.cardResults.visibility = View.GONE
@@ -182,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val scaleData = withContext(Dispatchers.IO) {
-                    geminiHandler.extractData(bitmap)
+                    geminiHandler.extractData(bitmap, apiKey)
                 }
 
                 pendingScaleData = scaleData
@@ -192,6 +238,9 @@ class MainActivity : AppCompatActivity() {
                 binding.tvStatus.text = "Daten erkannt. Bitte prüfen und speichern."
 
             } catch (e: Exception) {
+                if (e.localizedMessage?.contains("api", ignoreCase = true) == true) {
+                    binding.tilApiKey.error = "API-Key ungueltig oder nicht freigeschaltet"
+                }
                 binding.tvStatus.text = "Fehler: ${e.localizedMessage}"
                 Toast.makeText(this@MainActivity, "Fehler: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             } finally {
