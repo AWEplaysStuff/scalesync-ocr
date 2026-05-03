@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ScaleSyncOCR" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#155E63</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#D7F3F5</item>
+        <item name="colorOnPrimaryContainer">#0D2529</item>
+        <item name="colorSecondary">#5A6D71</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#E1ECEE</item>
+        <item name="colorOnSecondaryContainer">#1B2B2F</item>
+        <item name="colorTertiary">#C9794B</item>
+        <item name="colorOnTertiary">#FFFFFF</item>
+        <item name="colorSurface">#FCFDFB</item>
+        <item name="colorOnSurface">#142124</item>
+        <item name="colorSurfaceVariant">#EAF1F3</item>
+        <item name="colorOnSurfaceVariant">#506367</item>
+        <item name="colorOutline">#D7E3E8</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#FCFDFB</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

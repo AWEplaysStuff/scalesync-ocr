@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ScaleSync OCR</string>
+    <string name="health_connect_integration">Health Connect Integration</string>
+    <string name="status_checking">Status checking...</string>
+    <string name="connect_health_connect">Connect Health Connect</string>
+    <string name="analyze_screenshot">Analyze Screenshot</string>
+    <string name="upload_screenshot">Upload Screenshot</string>
+    <string name="waiting_for_upload">Waiting for screenshot upload...</string>
+    <string name="extracted_data">Extracted Data</string>
+    <string name="save_to_health_connect">Save to Health Connect</string>
+</resources>

@@ -1,0 +1,4 @@
+-keep class com.example.scalesyncocr.api.** { *; }
+-keep class com.example.scalesyncocr.data.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
