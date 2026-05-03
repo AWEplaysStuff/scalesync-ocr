@@ -4,15 +4,26 @@ Android app for importing body-composition scale screenshots into Health Connect
 
 This project is vibe coded.
 
+[Download Latest APK](https://github.com/AWEplaysStuff/scalesync-ocr/releases/latest)
+
+## App screenshot
+
+![ScaleSync OCR app home screen](docs/screenshots/app-home.jpg)
+
 ## Fastest way to use it
 
 1. Download the APK.
-2. Open the app.
+2. Open the app on your phone.
 3. Paste your Gemini API key once into the in-app field.
 4. Connect Health Connect.
 5. Pick a screenshot and save the values.
 
 No local.properties setup is needed for normal APK users.
+
+## Share it
+
+- Share the GitHub release link if you want people to install the app directly.
+- Share the repository link if you want people to inspect the code or contribute.
 
 ## What it does
 
