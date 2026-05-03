@@ -2,7 +2,7 @@
 
 Android app for importing body-composition scale screenshots into Health Connect.
 
-This project is proudly vibe coded.
+This project is vibe coded.
 
 ## What it does
 
