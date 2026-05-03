@@ -27,7 +27,7 @@
                 android:paddingTop="6dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="6dp"
-                android:text="Health Connect"
+                android:text="@string/rationale_kicker"
                 android:textColor="#F5FBFC"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Wofuer die Berechtigungen gebraucht werden"
+                android:text="@string/rationale_title"
                 android:textColor="#FFFFFF"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="ScaleSync OCR uebertraegt erkannte Koerperdaten aus deinem Screenshot in Health Connect."
+                android:text="@string/rationale_subtitle"
                 android:textColor="#D7F2F5"
                 android:textSize="16sp"
                 android:lineSpacingExtra="2dp" />
@@ -70,7 +70,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Die App schreibt diese Datentypen:"
+                    android:text="@string/rationale_data_types_title"
                     android:textColor="#142124"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Gewicht\nKoerperfettanteil\nMagermasse\nKnochenmasse\nKoerperwasser\nGrundumsatz"
+                    android:text="@string/rationale_data_types_list"
                     android:textColor="#506367"
                     android:textSize="16sp"
                     android:lineSpacingExtra="8dp" />
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="Das Bild wird fuer die OCR an die Gemini API gesendet. Die erkannten Werte werden danach auf deinem Geraet in Health Connect gespeichert."
+                    android:text="@string/rationale_privacy"
                     android:textColor="#506367"
                     android:textSize="15sp"
                     android:lineSpacingExtra="3dp" />
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="20dp"
-                    android:text="Zurueck"
+                    android:text="@string/back"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

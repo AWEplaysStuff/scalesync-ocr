@@ -5,8 +5,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,7 +28,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
-    private val savedTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY)
+    private val savedTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.getDefault())
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var apiKeyStore: GeminiApiKeyStore
@@ -59,9 +57,9 @@ class MainActivity : AppCompatActivity() {
         ) { granted ->
             updateHcStatusUI()
             if (!granted.containsAll(healthConnectWriter.permissions)) {
-                Toast.makeText(this, "Nicht alle Berechtigungen wurden erteilt.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_permissions_not_all), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Health Connect verbunden!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_health_connect_connected), Toast.LENGTH_SHORT).show()
                 pendingScaleData?.let { saveToHealthConnect(it) }
             }
         }
@@ -124,17 +122,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateApiKeyStatus(apiKey: String) {
         binding.tvApiKeyStatus.text = if (apiKey.isBlank()) {
-            "Trage hier einmal deinen Gemini API-Key ein. Er wird nur lokal auf diesem Geraet gespeichert."
+            getString(R.string.api_key_status_empty)
         } else {
-            "API-Key gespeichert. Du kannst die APK jetzt direkt benutzen."
+            getString(R.string.api_key_status_saved)
         }
     }
 
     private fun requireApiKey(): String? {
         val apiKey = binding.editApiKey.text?.toString()?.trim().orEmpty()
         if (apiKey.isBlank()) {
-            binding.tilApiKey.error = "Gemini API-Key fehlt"
-            binding.tvStatus.text = "Trage zuerst deinen Gemini API-Key ein."
+            binding.tilApiKey.error = getString(R.string.api_key_missing)
+            binding.tvStatus.text = getString(R.string.status_enter_api_key_first)
             binding.editApiKey.requestFocus()
             return null
         }
@@ -173,16 +171,16 @@ class MainActivity : AppCompatActivity() {
         val status = HealthConnectClient.getSdkStatus(this)
         when (status) {
             HealthConnectClient.SDK_UNAVAILABLE -> {
-                binding.tvHcStatus.text = "Health Connect ist nicht installiert."
-                binding.btnConnectHc.text = "Health Connect installieren"
+                binding.tvHcStatus.text = getString(R.string.status_hc_not_installed)
+                binding.btnConnectHc.text = getString(R.string.health_connect_install)
                 binding.btnConnectHc.isEnabled = true
-                binding.tvStatus.text = "Installiere zuerst Health Connect und verbinde die App danach mit einem Tippen."
+                binding.tvStatus.text = getString(R.string.status_hc_install_hint)
             }
             HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED -> {
-                binding.tvHcStatus.text = "Health Connect muss aktualisiert werden."
-                binding.btnConnectHc.text = "Health Connect aktualisieren"
+                binding.tvHcStatus.text = getString(R.string.status_hc_update_required)
+                binding.btnConnectHc.text = getString(R.string.health_connect_update)
                 binding.btnConnectHc.isEnabled = true
-                binding.tvStatus.text = "Aktualisiere Health Connect und komme danach direkt wieder hierher zur Freigabe."
+                binding.tvStatus.text = getString(R.string.status_hc_update_hint)
             }
             HealthConnectClient.SDK_AVAILABLE -> {
                 lifecycleScope.launch {
@@ -191,15 +189,15 @@ class MainActivity : AppCompatActivity() {
                     }.getOrDefault(false)
 
                     if (hasPerms) {
-                        binding.tvHcStatus.text = "Verbunden. Alle Berechtigungen erteilt."
-                        binding.btnConnectHc.text = "Berechtigungen verwalten"
+                        binding.tvHcStatus.text = getString(R.string.status_permissions_granted)
+                        binding.btnConnectHc.text = getString(R.string.health_connect_manage)
                         binding.btnConnectHc.isEnabled = true
-                        binding.tvStatus.text = "Lade jetzt einen Waagen-Screenshot hoch."
+                        binding.tvStatus.text = getString(R.string.status_ready_upload)
                     } else {
-                        binding.tvHcStatus.text = "Berechtigungen noch nicht erteilt."
-                        binding.btnConnectHc.text = "Berechtigungen erteilen"
+                        binding.tvHcStatus.text = getString(R.string.status_permissions_missing)
+                        binding.btnConnectHc.text = getString(R.string.health_connect_grant)
                         binding.btnConnectHc.isEnabled = true
-                        binding.tvStatus.text = "Tippe auf \"Berechtigungen erteilen\" um zu starten."
+                        binding.tvStatus.text = getString(R.string.status_tap_grant)
                     }
                 }
             }
@@ -210,7 +208,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val apiKey = requireApiKey() ?: return@launch
             setLoading(true)
-            binding.tvStatus.text = "Gemini AI analysiert das Bild..."
+            binding.tvStatus.text = getString(R.string.status_analyzing)
             binding.cardResults.visibility = View.GONE
             binding.tvResultMeta.visibility = View.GONE
             binding.btnSave.isEnabled = false
@@ -233,16 +231,17 @@ class MainActivity : AppCompatActivity() {
 
                 pendingScaleData = scaleData
                 displayExtractedData(scaleData)
-                binding.tvResultMeta.text = "Alle Werte sind direkt editierbar. Passe sie bei Bedarf an und speichere dann sofort."
+                binding.tvResultMeta.text = getString(R.string.result_meta_editable)
                 binding.tvResultMeta.visibility = View.VISIBLE
-                binding.tvStatus.text = "Daten erkannt. Bitte prüfen und speichern."
+                binding.tvStatus.text = getString(R.string.status_data_detected)
 
             } catch (e: Exception) {
+                val errorMessage = e.localizedMessage ?: getString(R.string.error_unknown)
                 if (e.localizedMessage?.contains("api", ignoreCase = true) == true) {
-                    binding.tilApiKey.error = "API-Key ungueltig oder nicht freigeschaltet"
+                    binding.tilApiKey.error = getString(R.string.api_key_invalid_or_disabled)
                 }
-                binding.tvStatus.text = "Fehler: ${e.localizedMessage}"
-                Toast.makeText(this@MainActivity, "Fehler: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                binding.tvStatus.text = getString(R.string.error_prefix, errorMessage)
+                Toast.makeText(this@MainActivity, getString(R.string.error_prefix, errorMessage), Toast.LENGTH_LONG).show()
             } finally {
                 setLoading(false)
             }
@@ -265,14 +264,14 @@ class MainActivity : AppCompatActivity() {
     private fun collectEditedScaleData(): ScaleData? {
         clearFieldErrors()
 
-        val weight = parseDoubleField(binding.tilWeight, binding.editWeight, "Gewicht") ?: return null
-        val bodyFat = parseDoubleField(binding.tilBodyFat, binding.editBodyFat, "Koerperfett") ?: return null
-        val muscleMass = parseDoubleField(binding.tilMuscleMass, binding.editMuscleMass, "Muskelmasse") ?: return null
-        val boneMass = parseDoubleField(binding.tilBoneMass, binding.editBoneMass, "Knochenmasse") ?: return null
-        val bodyWater = parseDoubleField(binding.tilBodyWater, binding.editBodyWater, "Koerperwasser") ?: return null
-        val protein = parseDoubleField(binding.tilProtein, binding.editProtein, "Protein") ?: return null
-        val bmi = parseDoubleField(binding.tilBmi, binding.editBmi, "BMI") ?: return null
-        val bmr = parseIntField(binding.tilBmr, binding.editBmr, "Grundumsatz") ?: return null
+        val weight = parseDoubleField(binding.tilWeight, binding.editWeight, getString(R.string.metric_weight)) ?: return null
+        val bodyFat = parseDoubleField(binding.tilBodyFat, binding.editBodyFat, getString(R.string.metric_body_fat)) ?: return null
+        val muscleMass = parseDoubleField(binding.tilMuscleMass, binding.editMuscleMass, getString(R.string.metric_muscle_mass)) ?: return null
+        val boneMass = parseDoubleField(binding.tilBoneMass, binding.editBoneMass, getString(R.string.metric_bone_mass)) ?: return null
+        val bodyWater = parseDoubleField(binding.tilBodyWater, binding.editBodyWater, getString(R.string.metric_body_water)) ?: return null
+        val protein = parseDoubleField(binding.tilProtein, binding.editProtein, getString(R.string.metric_protein)) ?: return null
+        val bmi = parseDoubleField(binding.tilBmi, binding.editBmi, getString(R.string.metric_bmi)) ?: return null
+        val bmr = parseIntField(binding.tilBmr, binding.editBmr, getString(R.string.metric_bmr)) ?: return null
 
         return ScaleData(
             weight = weight,
@@ -308,13 +307,13 @@ class MainActivity : AppCompatActivity() {
     ): Double? {
         val rawValue = input.text?.toString()?.trim()?.replace(',', '.')
         if (rawValue.isNullOrEmpty()) {
-            inputLayout.error = "$fieldName fehlt"
+            inputLayout.error = getString(R.string.field_required, fieldName)
             return null
         }
 
         val parsedValue = rawValue.toDoubleOrNull()
         if (parsedValue == null) {
-            inputLayout.error = "$fieldName ist ungueltig"
+            inputLayout.error = getString(R.string.field_invalid, fieldName)
             return null
         }
 
@@ -328,13 +327,13 @@ class MainActivity : AppCompatActivity() {
     ): Int? {
         val rawValue = input.text?.toString()?.trim()
         if (rawValue.isNullOrEmpty()) {
-            inputLayout.error = "$fieldName fehlt"
+            inputLayout.error = getString(R.string.field_required, fieldName)
             return null
         }
 
         val parsedValue = rawValue.toIntOrNull()
         if (parsedValue == null) {
-            inputLayout.error = "$fieldName ist ungueltig"
+            inputLayout.error = getString(R.string.field_invalid, fieldName)
             return null
         }
 
@@ -342,29 +341,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun formatDecimal(value: Double, decimals: Int): String {
-        return String.format(Locale.GERMANY, "%1$.${decimals}f", value)
+        return String.format(Locale.getDefault(), "%1$.${decimals}f", value)
     }
 
     private fun saveToHealthConnect(data: ScaleData) {
         lifecycleScope.launch {
             setLoading(true)
-            binding.tvStatus.text = "Wird in Health Connect gespeichert..."
+            binding.tvStatus.text = getString(R.string.status_saving)
 
             try {
                 val result = withContext(Dispatchers.IO) {
                     healthConnectWriter.writeScaleData(data)
                 }
                 val savedAtText = savedTimeFormatter.format(result.savedInstant.atZone(ZoneId.systemDefault()))
-                binding.tvStatus.text = "Gespeichert in Health Connect."
-                binding.tvResultMeta.text = "Gespeichert mit der aktuellen Geraetezeit: $savedAtText."
-                Toast.makeText(this@MainActivity, "Erfolgreich gespeichert!", Toast.LENGTH_SHORT).show()
+                binding.tvStatus.text = getString(R.string.status_saved)
+                binding.tvResultMeta.text = getString(R.string.status_saved_at, savedAtText)
+                Toast.makeText(this@MainActivity, getString(R.string.toast_saved), Toast.LENGTH_SHORT).show()
                 binding.tvResultMeta.visibility = View.VISIBLE
             } catch (e: SecurityException) {
-                binding.tvStatus.text = "Berechtigungen fehlen. Bitte verbinden."
+                binding.tvStatus.text = getString(R.string.status_permissions_missing_connect)
                 healthPermissionsLauncher.launch(healthConnectWriter.permissions)
             } catch (e: Exception) {
-                binding.tvStatus.text = "Fehler beim Speichern: ${e.localizedMessage}"
-                Toast.makeText(this@MainActivity, "Fehler: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                val errorMessage = e.localizedMessage ?: getString(R.string.error_unknown)
+                binding.tvStatus.text = getString(R.string.error_prefix, errorMessage)
+                Toast.makeText(this@MainActivity, getString(R.string.error_prefix, errorMessage), Toast.LENGTH_LONG).show()
             } finally {
                 setLoading(false)
             }

@@ -31,7 +31,7 @@
                 android:paddingTop="6dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="6dp"
-                android:text="Screenshot zu Health Connect"
+                android:text="@string/hero_kicker"
                 android:textColor="#F5FBFC"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="ScaleSync OCR"
+                android:text="@string/hero_title"
                 android:textColor="#FFFFFF"
                 android:textSize="31sp"
                 android:textStyle="bold" />
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Ein klarer Drei-Schritt-Flow: verbinden, Screenshot waehlen, Werte direkt speichern."
+                android:text="@string/hero_subtitle"
                 android:textColor="#D7F2F5"
                 android:textSize="16sp"
                 android:lineSpacingExtra="3dp" />
@@ -79,7 +79,7 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="12dp"
                     android:paddingBottom="6dp"
-                    android:text="Schritt 1"
+                    android:text="@string/step_1"
                     android:textColor="#19474E"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Gemini API-Key eintragen"
+                    android:text="@string/api_key_section_title"
                     android:textColor="#142124"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Trage hier einmal deinen Gemini API-Key ein. Er wird nur lokal auf diesem Geraet gespeichert."
+                    android:text="@string/api_key_status_empty"
                     android:textColor="#506367"
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp" />
@@ -108,14 +108,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:hint="Gemini API-Key"
+                    android:hint="@string/api_key_hint"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="18dp"
                     app:boxCornerRadiusBottomStart="18dp"
                     app:boxCornerRadiusTopEnd="18dp"
                     app:boxCornerRadiusTopStart="18dp"
                     app:endIconMode="password_toggle"
-                    app:helperText="Wird lokal auf diesem Geraet gespeichert">
+                    app:helperText="@string/api_key_helper">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editApiKey"
@@ -151,7 +151,7 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="12dp"
                     android:paddingBottom="6dp"
-                    android:text="Schritt 2"
+                    android:text="@string/step_2"
                     android:textColor="#19474E"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Health Connect verbinden"
+                    android:text="@string/health_connect_title"
                     android:textColor="#142124"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -170,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Status wird geprueft..."
+                    android:text="@string/health_connect_status_checking"
                     android:textColor="#506367"
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp" />
@@ -180,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="18dp"
-                    android:text="Berechtigungen verwalten"
+                    android:text="@string/health_connect_manage"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
@@ -214,7 +214,7 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="12dp"
                     android:paddingBottom="6dp"
-                    android:text="Schritt 3"
+                    android:text="@string/step_3"
                     android:textColor="#19474E"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -223,7 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Waagen-Screenshot analysieren"
+                    android:text="@string/screenshot_section_title"
                     android:textColor="#142124"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -232,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Waehle den Screenshot deines Berichts. Die App extrahiert Gewicht, Koerperfett, Muskelmasse, Wasser, Protein und Grundumsatz automatisch."
+                    android:text="@string/screenshot_section_description"
                     android:textColor="#506367"
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp" />
@@ -242,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="18dp"
-                    android:text="Screenshot auswaehlen"
+                    android:text="@string/screenshot_pick"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
@@ -286,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:text="Status"
+                    android:text="@string/status_label"
                     android:textColor="#142124"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -297,7 +297,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="Verbinde zuerst Health Connect und waehle danach deinen Screenshot."
+                    android:text="@string/status_default"
                     android:textColor="#506367"
                     android:textSize="15sp"
                     android:lineSpacingExtra="2dp" />
@@ -330,7 +330,7 @@
                     android:paddingTop="6dp"
                     android:paddingEnd="12dp"
                     android:paddingBottom="6dp"
-                    android:text="Schritt 4"
+                    android:text="@string/step_4"
                     android:textColor="#19474E"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -339,7 +339,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Extrahierte Werte pruefen"
+                    android:text="@string/results_section_title"
                     android:textColor="#142124"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -366,13 +366,13 @@
                         android:id="@+id/tilWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Gewicht"
+                        android:hint="@string/metric_weight"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="kg">
+                        app:suffixText="@string/unit_kg">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editWeight"
@@ -386,13 +386,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Koerperfett"
+                        android:hint="@string/metric_body_fat"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="%">
+                        app:suffixText="@string/unit_percent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBodyFat"
@@ -406,13 +406,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Muskelmasse"
+                        android:hint="@string/metric_muscle_mass"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="%">
+                        app:suffixText="@string/unit_percent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editMuscleMass"
@@ -426,13 +426,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Knochenmasse"
+                        android:hint="@string/metric_bone_mass"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="kg">
+                        app:suffixText="@string/unit_kg">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBoneMass"
@@ -446,13 +446,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Koerperwasser"
+                        android:hint="@string/metric_body_water"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="%">
+                        app:suffixText="@string/unit_percent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBodyWater"
@@ -466,13 +466,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Protein"
+                        android:hint="@string/metric_protein"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="%">
+                        app:suffixText="@string/unit_percent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editProtein"
@@ -486,7 +486,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="BMI"
+                        android:hint="@string/metric_bmi"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
@@ -505,13 +505,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Grundumsatz"
+                        android:hint="@string/metric_bmr"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="18dp"
                         app:boxCornerRadiusBottomStart="18dp"
                         app:boxCornerRadiusTopEnd="18dp"
                         app:boxCornerRadiusTopStart="18dp"
-                        app:suffixText="kcal/Tag">
+                        app:suffixText="@string/unit_kcal_per_day">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editBmr"
@@ -527,7 +527,7 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="18dp"
                     android:enabled="false"
-                    android:text="In Health Connect speichern"
+                    android:text="@string/save_to_health_connect"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

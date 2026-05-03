@@ -20,10 +20,18 @@ This project is vibe coded.
 
 No local.properties setup is needed for normal APK users.
 
+## Languages
+
+- English
+- German
+
+The app switches automatically based on the device language.
+
 ## Share it
 
 - Share the GitHub release link if you want people to install the app directly.
 - Share the repository link if you want people to inspect the code or contribute.
+- Share the GitHub Pages landing page if you want a cleaner public entry point.
 
 ## What it does
 
